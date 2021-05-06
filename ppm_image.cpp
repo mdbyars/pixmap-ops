@@ -11,6 +11,8 @@ ppm_image::ppm_image()
 
 ppm_image::ppm_image(int w, int h) 
 {
+    ppm_pixel pixels[w][h];
+
 }
 
 ppm_image::ppm_image(const ppm_image& orig)
@@ -35,6 +37,25 @@ ppm_image::~ppm_image()
 
 bool ppm_image::load(const std::string& filename)
 {
+    ifstream infile;
+    int width = 0;
+    int height = 0;
+    infile.open(Untitled.c_str());
+    string line;
+    int count = 0;
+    while (getline(infile, line)) {
+        if (count < 2) {
+            count++;
+        }
+        if (count = 2) {
+            width = stoi(line.substr(0, 1));
+            height = stoi(line.substr(1, 2));
+            count++;
+        }
+        else {
+
+        }
+    }
    return false;
 }
 

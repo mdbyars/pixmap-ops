@@ -22,8 +22,9 @@ namespace agl
      ppm_image(int width, int height);
      ppm_image(const ppm_image& orig);
      ppm_image& operator=(const ppm_image& orig);
-
      virtual ~ppm_image();
+     ppm_pixel pixels;
+
 
      // load the given filename
      // returns true if the load is successful; false otherwise
