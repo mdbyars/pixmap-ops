@@ -5,9 +5,10 @@
 
 #pragma once
 #include <string>
-
-namespace agl
-{
+#include <list>
+#include <iostream>
+using namespace std;
+namespace agl{
   struct ppm_pixel
   {
      unsigned char r;
@@ -23,7 +24,10 @@ namespace agl
      ppm_image(const ppm_image& orig);
      ppm_image& operator=(const ppm_image& orig);
      virtual ~ppm_image();
-     ppm_pixel pixels;
+    // std::list<list<ppm_pixel>> allPixels;
+     int allWidth;
+     int allHeight;
+     ppm_pixel** allPixels;
 
 
      // load the given filename
