@@ -71,11 +71,6 @@ ppm_image::~ppm_image()
 {
     int allWidth = 0;
     int allHeight = 0;
-    //is this necessary? todo
-   // for (int i = 0; i <= allHeight - 1; i++) {
-  //      delete[]  allPixels[i];
-   // }
-  //  delete[] allPixels;
 }
 
 bool ppm_image::load(const std::string& filename)
