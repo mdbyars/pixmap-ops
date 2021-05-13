@@ -32,11 +32,17 @@ ppm_image::ppm_image(const ppm_image& orig)
 {
     //allWidth = 0;
     //allHeight = 0;
-    this->allHeight = orig.allHeight;
-    this->allWidth = orig.allWidth;
-    //std::list<list<ppm_pixel>> allPixels = { {} };
-    for (int f = 0; f <= allHeight - 1; f++) {
-        allPixels[f] = orig.allPixels[f];
+    allHeight = orig.allHeight;
+    allWidth = orig.allWidth;
+    if (allHeight <= 0) {
+        cout << "invalid image size";
+    }
+    else {
+        allPixels = new ppm_pixel * [allHeight];
+        //std::list<list<ppm_pixel>> allPixels = { {} };
+        for (int f = 0; f <= allHeight - 1; f++) {
+            allPixels[f] = orig.allPixels[f];
+        }
     }
 }
 
@@ -59,6 +65,8 @@ ppm_image& ppm_image::operator=(const ppm_image& orig)
    // }
    this->allHeight = orig.allHeight;
    this->allWidth = orig.allWidth;
+    //   allPixels = new ppm_pixel*[allHeight];
+
    //std::list<list<ppm_pixel>> allPixels = { {} };
    for (int f = 0; f <= allHeight - 1; f++) {
        allPixels[f] = orig.allPixels[f];
@@ -94,11 +102,13 @@ bool ppm_image::load(const std::string& filename)
     file >> inputVal;
     allWidth = inputVal;
     //generating the 2d structure in a way where I can individually address each pixel 
+    file >> inputVal;
+    allHeight = inputVal;
+    file >> inputVal;
+    allPixels = new ppm_pixel * [allHeight];
     for (int m = 0; m <= allHeight - 1; m++) {
         allPixels[m] = new ppm_pixel[allWidth];
     }
-    file >> inputVal;
-    allHeight = inputVal;
     //allPixels = new ppm_pixel**;
     //giving up on this structure and taking on the simpler input standard in the c++ documentation because of stoi errors that I couldnt fitgure out 
     /*  while (getline(infile, line)) {
@@ -177,17 +187,17 @@ bool ppm_image::save(const std::string& filename) const
         return false;
     }
     //for the unique ppm header 
-    file << "P3 \n";
-    file << allWidth;
-    file << allHeight;
-    file << "225 \n";
+    file << "P3" << endl;
+    file << allWidth << endl;
+    file << allHeight << endl;
+    file << "225"<< endl;
 
     //now we will interate through all the pixels to output them 
     for (int i = 0; i <= allHeight - 1; i++) {
         for (int j = 0; j <= allWidth - 1; j++) {
-            file << allPixels[i][j].r;
-            file << allPixels[i][j].g;
-            file << allPixels[i][j].b;
+            file << int(allPixels[i][j].r) << " " << endl;
+            file << int(allPixels[i][j].g) << " " << endl;
+            file << int(allPixels[i][j].b) << " " << endl;
         }
     }
     file.close();
