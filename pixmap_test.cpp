@@ -54,7 +54,7 @@ int main(int argc, char** argv)
    // gamma correction
    ppm_image gamma = image.gammaCorrect(0.6f); 
    gamma.save("earth-gamma-0.6.ppm"); 
-
+   /*
    gamma = image.gammaCorrect(2.2f);
    gamma.save("earth-gamma-2.2.ppm"); 
 
@@ -69,5 +69,6 @@ int main(int argc, char** argv)
    ppm_image blend = background.alpha_blend(soup, 0.5f);
    image.replace(blend, x, y);
    image.save("earth-blend-0.5.ppm");
+   */
 }
 

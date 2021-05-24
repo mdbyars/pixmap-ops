@@ -41,7 +41,11 @@ ppm_image::ppm_image(const ppm_image& orig)
         allPixels = new ppm_pixel * [allHeight];
         //std::list<list<ppm_pixel>> allPixels = { {} };
         for (int f = 0; f <= allHeight - 1; f++) {
-            allPixels[f] = orig.allPixels[f];
+            allPixels[f] = new ppm_pixel[allWidth];
+            for (int g = 0; g <= allWidth - 1; g++) {
+                allPixels[f][g] = orig.allPixels[f][g];
+            }
+        
         }
     }
 }
@@ -65,12 +69,16 @@ ppm_image& ppm_image::operator=(const ppm_image& orig)
    // }
    this->allHeight = orig.allHeight;
    this->allWidth = orig.allWidth;
-    //   allPixels = new ppm_pixel*[allHeight];
+   allPixels = new ppm_pixel*[allHeight];
 
    //std::list<list<ppm_pixel>> allPixels = { {} };
    for (int f = 0; f <= allHeight - 1; f++) {
-       allPixels[f] = orig.allPixels[f];
+       allPixels[f] = new ppm_pixel[allWidth];
+       for (int g = 0; g <= allWidth - 1; g++) {
+           allPixels[f][g] = orig.allPixels[f][g];
+       }
    }
+
 
    return *this;   
 }
@@ -157,7 +165,7 @@ bool ppm_image::load(const std::string& filename)
     }
     */
     //while we are still in the file 
-    while (file) {
+  //  while (file) {
         for (int k = 0; k <= allHeight - 1; k++) {
             for (int j = 0; j <= allWidth - 1; j++) {
                 ppm_pixel currPixel = { 0, 0, 0 };
@@ -173,7 +181,7 @@ bool ppm_image::load(const std::string& filename)
                 allPixels[k][j] = currPixel;
             }
         }
-    }
+   // }
    file.close();
    return false;
 }
@@ -193,11 +201,11 @@ bool ppm_image::save(const std::string& filename) const
     file << "225"<< endl;
 
     //now we will interate through all the pixels to output them 
-    for (int i = 0; i <= allHeight - 1; i++) {
-        for (int j = 0; j <= allWidth - 1; j++) {
-            file << int(allPixels[i][j].r) << " " << endl;
-            file << int(allPixels[i][j].g) << " " << endl;
-            file << int(allPixels[i][j].b) << " " << endl;
+    for (int m = 0; m <= allHeight - 1; m++) {
+        for (int n = 0; n <= allWidth - 1; n++) {
+            file << int(allPixels[m][n].r) << " " << endl;
+            file << int(allPixels[m][n].g) << " " << endl;
+            file << int(allPixels[m][n].b) << " " << endl;
         }
     }
     file.close();
@@ -264,3 +272,9 @@ int ppm_image::width() const
 {
    return allWidth;
 }
+
+void ppm_image::clear() {
+
+}
+
+
